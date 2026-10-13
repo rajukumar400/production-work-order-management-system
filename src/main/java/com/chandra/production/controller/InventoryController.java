@@ -50,6 +50,7 @@ public class InventoryController {
     }
 
     @PutMapping("/stock-in/{rawMaterialId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'INVENTORY_MANAGER')")
     public ResponseEntity<Inventory> stockIn(
             @PathVariable Long rawMaterialId,
             @RequestParam Double quantity) {
