@@ -18,12 +18,10 @@ public interface DispatchRepository
     List<Dispatch> findByCustomerNameContainingIgnoreCase(
             String customerName);
 
-    @Query("""
-           SELECT COALESCE(SUM(d.dispatchQuantity), 0)
-           FROM Dispatch d
-           WHERE d.production.id = :productionId
-           AND d.status <> com.chandra.production.entity.DispatchStatus.CANCELLED
-           """)
+    @Query("SELECT COALESCE(SUM(d.dispatchQuantity), 0) " +
+           "FROM Dispatch d " +
+           "WHERE d.production.id = :productionId " +
+           "AND d.status <> com.chandra.production.entity.DispatchStatus.CANCELLED")
     Double getTotalDispatchedQuantity(
             @Param("productionId") Long productionId);
 }
